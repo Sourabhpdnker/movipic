@@ -3,43 +3,43 @@ import mongoose from "mongoose";
 const UserSchema = new mongoose.Schema(
     {
         firstName: {
-            type: string,
+            type: String,
             require: true,
             min: 2,
             max: 50,
         },
         lastName: {
-            type: string,
+            type: String,
             require: true,
             min: 2,
             max: 50,
         },
         email: {
-            type: string,
+            type: String,
             require: true,
             unique: true,
             max: 50,
         },
         password: {
-            type: string,
+            type: String,
             require: true,
             min: 5,
         },
         picturePath: {
-            type: string,
+            type: String,
             default: "",
         },
         friends: {
             type: Array,
             default: [],
         },
-        location: string,
-        occupation: string,
+        location: String,
+        occupation: String,
         viewProfile: Number,
 
 
     },
     { timestamps: true }
 );
-const user = mongoose.model("User", UserSchema);
+const User = mongoose.model("User", UserSchema);
 export default User;

@@ -1,4 +1,5 @@
-import Post from "../models/posts.js";
+import Post from "../models/Post.js";
+import User from "../models/user.js"
 //create 
 export const createPost = async (req, res) => {
     try {
@@ -54,13 +55,17 @@ export const likePost = async (req, res) => {
         const isLiked = post.likes.get(userId);
 
         if (isLiked) {
-            post.likes.delete(userId, true);
-
+            post.likes.delete(userId);
         } else {
-            post.likes.set(user)
+            post.likes.set(userId, true)
         }
 
-        res.status(200).json();
+        const updatedPost = await Post.findByIdAndUpdate(
+            id,
+            { likes: post.like },
+            { new: true },
+        );
+        res.status(200).json(updatedPost);
     } catch (err) {
         res.status(404).json({ message: err.message })
     }

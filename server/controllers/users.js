@@ -1,5 +1,4 @@
-import { promise } from "bcrypt/promises";
-import User from "../models/user";
+import User from "../models/user.js";
 
 // READ 
 export const getUser = async (req, res) => {
@@ -17,7 +16,7 @@ export const getUserFriends = async (req, res) => {
         const { id } = req.params;
         const user = await user.findbyId(id);
 
-        const friends = await promise.all(
+        const friends = await Promise.all(
             user.friends.map((id) => User.findbyId(id))
         );
         const formattedFriends = friends.map(
@@ -49,7 +48,7 @@ export const addRemoveFriend = async (req, res) => {
         await user.save();
         await friend.save();
 
-        const friends = await promise.all(
+        const friends = await Promise.all(
             user.friends.map((id) => User.findbyId(id))
         );
         const formattedFriends = friends.map(
