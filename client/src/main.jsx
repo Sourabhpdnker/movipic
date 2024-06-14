@@ -1,4 +1,4 @@
-import React, { version } from "react";
+import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import authReducer from "./state";
@@ -17,25 +17,29 @@ import {
 import storage from "redux-persist/lib/storage";
 import { PersistGate } from "redux-persist/integration/react";
 
+// Persist configuration
 const persistConfig = { key: "root", storage, version: 1 };
+
+// Persisted reducer
 const persistedReducer = persistReducer(persistConfig, authReducer);
+
+// Configure store
 const store = configureStore({
   reducer: persistedReducer,
-  middleware: (getDefaultMiddlewere) => {
-    getDefaultMiddlewere({
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
       serializableCheck: {
-        ignoreActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    });
-  },
+    }),
 });
 
+// Render the application
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistStore(store)}>
         <App />
-        <h1>te7te7</h1>
       </PersistGate>
     </Provider>
   </React.StrictMode>
