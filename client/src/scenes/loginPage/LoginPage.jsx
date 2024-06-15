@@ -1,5 +1,8 @@
+import Navbar from "../navbar/Navbar";
+
 const LoginPage = () => {
-  return <div>LoginPage</div>;
+  return;
+  <Navbar></Navbar>;
 };
 export default LoginPage;
 
